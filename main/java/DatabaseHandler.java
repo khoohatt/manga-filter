@@ -45,14 +45,15 @@ public class DatabaseHandler {
         return dbConnection;
     }
 
-    public void updateUser(int id, String cont, String pass, LocalDate date) throws SQLException, ClassNotFoundException {
-        String update = "UPDATE " + Const.USER_TABLE + " SET " + Const.USERS_CONTACT + "=?, " + Const.USERS_AGE + "=?, " + Const.USERS_PASS + "=? WHERE " + Const.USERS_ID + "=?";
+    public void updateUser(int id, String cont, String pass, LocalDate date, boolean isHidden) throws SQLException, ClassNotFoundException {
+        String update = "UPDATE " + Const.USER_TABLE + " SET " + Const.USERS_CONTACT + "=?, " + Const.USERS_AGE + "=?, " + Const.USERS_VISIBILITY + "=?, " + Const.USERS_PASS + "=? WHERE " + Const.USERS_ID + "=?";
 
         PreparedStatement pStatement = getDbConnection().prepareStatement(update);
         pStatement.setString(1, cont);
         pStatement.setDate(2, Date.valueOf(date));
-        pStatement.setString(3, pass);
-        pStatement.setInt(4, id);
+        pStatement.setBoolean(3, isHidden);
+        pStatement.setString(4, pass);
+        pStatement.setInt(5, id);
 
         int rowsUpdated = pStatement.executeUpdate();
     }
@@ -182,40 +183,22 @@ public class DatabaseHandler {
         System.out.println(name + fromDate + toDate);
         ResultSet result = null;
 
-        boolean addFilter = false;
         StringBuilder select = new StringBuilder();
-        select.append("SELECT * FROM ").append(Const.USER_TABLE);
+        select.append("SELECT * FROM ").append(Const.USER_TABLE).append(" WHERE ").append(Const.USERS_VISIBILITY).append("='false'");
         if (!name.equals("")) {
-            select.append(" WHERE ").append(Const.USERS_NAME).append("='").append(name).append("'");
-            addFilter = true;
+            select.append(" AND ").append(Const.USERS_NAME).append("='").append(name).append("'");
         }
         if (fromDate != null) {
-            if (addFilter) {
-                select.append(" AND ");
-            } else {
-                select.append(" WHERE ");
-                addFilter = true;
-            }
-            select.append(Const.USERS_AGE).append("<'").append(Date.valueOf(fromDate)).append("'");
+            select.append(" AND ").append(Const.USERS_AGE).append("<'").append(Date.valueOf(fromDate)).append("'");
         }
         if (toDate != null) {
-            if (addFilter) {
-                select.append(" AND ");
-            } else {
-                select.append(" WHERE ");
-                addFilter = true;
-            }
-            select.append(Const.USERS_AGE).append(">'").append(Date.valueOf(toDate)).append("'");
+            select.append(" AND ").append(Const.USERS_AGE).append(">'").append(Date.valueOf(toDate)).append("'");
         }
-        
+        System.out.println(select);
         if (resSet != null) {
             if (resSet.next()) {
-                if (addFilter) {
-                    select.append(" AND ");
-                    addFilter = false;
-                } else {
-                    select.append(" WHERE ");
-                }
+                select.append(" AND ");
+                boolean addFilter = false;
                 do {
                     if (addFilter) {
                         select.append(" OR ");
@@ -223,8 +206,6 @@ public class DatabaseHandler {
                     select.append("(").append(Const.USERS_ID).append("='").append(resSet.getInt(Const.TAG_USER)).append("'").append(")");
                     addFilter = true;
                 } while (resSet.next());
-            } else {
-                return null;
             }
         }
 
