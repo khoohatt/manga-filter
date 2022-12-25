@@ -1,0 +1,30 @@
+ @font-face {
+	font-family: 'Ace';
+	src: url("src/main/java/fonts/ofontru_AnimeAcev05.ttf");
+
+	/* font-weight: normal;
+	font-style: normal; */
+}
+
+/*@font-face {
+    font-family: "MyriadProRegular";
+    src: url("fonts/ofont.ru_Anime Ace v05.ttf");
+    src: url("fonts/ofont.ru_Anime Ace v05.ttf?#iefix")format("embedded-opentype"),
+    url("fonts/ofont.ru_Anime Ace v05.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+*/
+.label {
+    -fx-font-family: 'Ace';
+    -fx-font-size: 100;
+}
+
+.text {
+    -fx-font-family: 'Ace';
+    -fx-font-size: 1;
+}
+
+buttonClass {
+    -fx-font-size: 1;
+}

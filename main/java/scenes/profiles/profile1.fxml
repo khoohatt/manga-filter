@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="797.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProfileController">
+   <children>
+      <ImageView fx:id="profImage" fitHeight="805.0" fitWidth="628.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/profiles/profile1.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="39.0" layoutY="4.0" prefHeight="28.0" prefWidth="506.0" text="здесь будут настройки">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="expLabel" alignment="TOP_LEFT" layoutX="44.0" layoutY="608.0" prefHeight="161.0" prefWidth="302.0" text="имя" wrapText="true" />
+      <Label fx:id="specLabel" layoutX="42.0" layoutY="580.0" prefHeight="26.0" prefWidth="302.0" text="специальность:" />
+      <Label fx:id="contLabel" layoutX="56.0" layoutY="81.0" prefHeight="26.0" prefWidth="463.0" text="контакты:" wrapText="true" />
+      <Label fx:id="aboutLabel" alignment="TOP_LEFT" layoutX="47.0" layoutY="403.0" prefHeight="154.0" prefWidth="302.0" text="Label" textAlignment="JUSTIFY" wrapText="true" />
+      <Label fx:id="ageLabel" alignment="TOP_LEFT" layoutX="56.0" layoutY="39.0" prefHeight="41.0" prefWidth="463.0" text="Возраст: " wrapText="true" />
+      <TextField fx:id="contText" editable="false" layoutX="56.0" layoutY="101.0" style="-fx-background-color: transparent; -fx-background-insets: 0px;" />
+   </children>
+</AnchorPane>
